@@ -10,7 +10,7 @@ filename = 'iris.csv'
 raw_data = open(filename, 'r')
 reader = csv.reader(raw_data)
 
-#READING DATA AND ASSIGNING APPROPRIATE DATA
+#READING DATA AND CREATING THE DATASET
 x=0
 for row in reader:
 	column = []
@@ -26,8 +26,8 @@ for row in reader:
 #print(type(input_data))
 #print(type(input_data[0]))
 #print(type(input_data[0][0]))
-for x in xrange(150):
-	print(input_data[x])
+# for x in xrange(150):
+# 	print(input_data[x])
 
 # col0 = []
 # col1 = []
