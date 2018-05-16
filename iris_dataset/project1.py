@@ -2,10 +2,7 @@ import csv
 import matplotlib.pyplot as plt
 
 rows = []
-col0 = []
-col1 = []
-col2 = []
-col3 = []
+input_data = []
 output = []
 
 #READ THE CSV FILE
@@ -16,15 +13,29 @@ reader = csv.reader(raw_data)
 #READING DATA AND ASSIGNING APPROPRIATE DATA
 x=0
 for row in reader:
+	column = []
 	rows.append(row)
-	col0.append( float(rows[x][0]) )
-	col1.append( float(rows[x][1]) )
-	col2.append( float(rows[x][2]) )
-	col3.append( float(rows[x][3]) )
+	column.append(float(rows[x][0]))
+	column.append(float(rows[x][1]))
+	column.append(float(rows[x][2]))
+	column.append(float(rows[x][3]))
+	input_data.append(column)
 	output.append(rows[x][4])
 	x=x+1
 
-# plotting the points
-plt.scatter(col0, col1)
-# function to show the plot
-plt.show()
+#print(type(input_data))
+#print(type(input_data[0]))
+#print(type(input_data[0][0]))
+for x in xrange(150):
+	print(input_data[x])
+
+# col0 = []
+# col1 = []
+# for x in xrange(150):
+# 	col0.append(input_data[x][0])
+# 	col1.append(input_data[x][1])
+
+# #PLOTTING POINTS
+# plt.scatter(col0, col1)
+# #SHOW THE PLOT
+# plt.show()
