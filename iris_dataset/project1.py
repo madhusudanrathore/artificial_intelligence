@@ -1,41 +1,66 @@
 import csv
 import matplotlib.pyplot as plt
+from numpy import exp, array, random, dot
 
-rows = []
 input_data = []
-output = []
+output_data = []
 
-#READ THE CSV FILE
-filename = 'iris.csv'
-raw_data = open(filename, 'r')
-reader = csv.reader(raw_data)
+#PREPARE INPUT AND OUTPUT DATASET
+def prepare_input_and_output_data():
+	#READ THE CSV FILE
+	filename = 'iris.csv'
+	raw_data = open(filename, 'r')
+	reader = csv.reader(raw_data)
+	#READING DATA AND CREATING THE DATASET
+	x=0
+	temp_row = []
+	for row in reader:
+		column = []
+		temp_row.append(row)
+		column.append(float(temp_row[x][0]))
+		column.append(float(temp_row[x][1]))
+		column.append(float(temp_row[x][2]))
+		column.append(float(temp_row[x][3]))
+		input_data.append(column)
+		var=temp_row[x][4]
+		if var=="setosa":
+			output_data.append(0)
+		elif var=="versicolor":
+			output_data.append(1)
+		elif var=="virginica":
+			output_data.append(2)
+		x=x+1
+	#print(output_data)
 
-#READING DATA AND CREATING THE DATASET
-x=0
-for row in reader:
-	column = []
-	rows.append(row)
-	column.append(float(rows[x][0]))
-	column.append(float(rows[x][1]))
-	column.append(float(rows[x][2]))
-	column.append(float(rows[x][3]))
-	input_data.append(column)
-	output.append(rows[x][4])
-	x=x+1
+class NeuralNetwork(object):
+	def __init__(self):
+		random.seed(1)
+		#GENERATING RANDOM WEIGHTS
+		self.weights = 2 * random.random((4,1)) - 1
 
-#print(type(input_data))
-#print(type(input_data[0]))
-#print(type(input_data[0][0]))
-# for x in xrange(150):
-# 	print(input_data[x])
+	#SIGMOID ACTIVATION FUNCTION
+	def sigmoid(self,x):
+		return 1/(1+exp(-x))
+	#DERIVATION OF SIGMOID FUNCTION
+	def sigmoid_derivative(self, x):
+		return x*(1-x)
 
-# col0 = []
-# col1 = []
-# for x in xrange(150):
-# 	col0.append(input_data[x][0])
-# 	col1.append(input_data[x][1])
+	def think(self, inputs):
+		return self.sigmoid(dot(inputs, self.weights))
 
-# #PLOTTING POINTS
-# plt.scatter(col0, col1)
-# #SHOW THE PLOT
-# plt.show()
+	def train(self, training_set_inputs, training_set_outputs, number_of_training_iterations):
+		for iteration in range(number_of_training_iterations):
+			output = self.think(training_set_inputs)
+			error = training_set_outputs - output
+			adjustment = dot(training_set_inputs.T, error * self.sigmoid_derivative(output))
+			self.weights += adjustment
+
+prepare_input_and_output_data()
+ann = NeuralNetwork()
+
+training_set_inputs = array(input_data)
+training_set_outputs = array(output_data).T
+ann.train(training_set_inputs, training_set_outputs, 10000)
+# #NEW PREDICTION
+# op=ann.think(array([5.1, 3.5, 1.4, 0.2]))
+# print(op)
