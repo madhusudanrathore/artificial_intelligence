@@ -1,31 +1,5 @@
-import csv
-import matplotlib.pyplot as plt
+import prepare_dataset as pd
 from numpy import exp, array, random, dot
-
-input_data = []
-output_data = []
-
-def prepare_input_and_output_data():
-	filename = 'iris2.csv'
-	raw_data = open(filename, 'r')
-	reader = csv.reader(raw_data)
-	#READING DATA AND CREATING THE DATASET
-	x=0
-	temp_row = []
-	for row in reader:
-		column = []
-		temp_row.append(row)
-		column.append(float(temp_row[x][0]))
-		column.append(float(temp_row[x][1]))
-		input_data.append(column)
-		var=temp_row[x][4]
-		if var=="setosa":
-			output_data.append(0)
-		elif var=="versicolor":
-			output_data.append(1)
-		elif var=="virginica":
-			output_data.append(2)
-		x=x+1
 
 class NeuralNetwork(object):
 	def __init__(self):
@@ -64,11 +38,11 @@ class NeuralNetwork(object):
 		layer2 = self.think(layer1, self.weights1)
 		print(layer2)
 
-prepare_input_and_output_data()
+pd.prepare_input_and_output_data()
 ann = NeuralNetwork()
 
-training_set_inputs = array(input_data)
-training_set_outputs = array(output_data).T#TRANSPOSE MAKES IT A COLUMN VECTOR
+training_set_inputs = array(pd.input_data)
+training_set_outputs = array(pd.output_data).T#TRANSPOSE MAKES IT A COLUMN VECTOR
 
 ann.train(training_set_inputs, training_set_outputs, 10000)
 ann.prediction()
