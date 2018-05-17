@@ -4,7 +4,7 @@ input_data = []
 output_data = []
 
 def prepare_input_and_output_data():
-	filename = 'iris2.csv'
+	filename = 'iris.csv'
 	raw_data = open(filename, 'r')
 	reader = csv.reader(raw_data)
 	#READING DATA AND CREATING THE DATASET
