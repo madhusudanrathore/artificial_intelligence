@@ -8,7 +8,7 @@ test_data_input = []
 test_data_output = []
 
 def prepare_training_data():
-	filename = 'iris_training.csv'
+	filename = '../iris_training.csv'
 	raw_data = open(filename, 'r')
 	reader = csv.reader(raw_data)
 	#CREATING TRAINING DATASET
@@ -35,7 +35,7 @@ def prepare_training_data():
 		x=x+1
 
 def prepare_testing_data():
-	filename = 'iris_testing.csv'
+	filename = '../iris_testing.csv'
 	raw_data = open(filename, 'r')
 	reader = csv.reader(raw_data)
 	#CREATING TRAINING DATASET
