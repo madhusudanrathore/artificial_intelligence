@@ -1,16 +1,10 @@
 import tensorflow as tf
 import numpy as np
-tf.logging.set_verbosity(tf.logging.WARN)
-import pickle
-import os
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import f1_score
-from sklearn.metrics import accuracy_score
-import os
-from tensorflow.python.client import device_lib
+import ast
+import gensim as GS
+import PrepareData as PD
 
-
-#READING AND SPLITTING EMBEDDINGS WORDS AND VECTORS
+'''READING AND SPLITTING EMBEDDINGS WORDS AND VECTORS'''
 embeddings_words=list()
 embeddings_values=list()
 f = open('../glove_dataset/glove.6B.50d.txt')
@@ -31,7 +25,7 @@ embeddings_values=np.array(embeddings_values)#CONVERTING VECTORS TO NUMPY ARRAY
 #DEFINE PARAMETERS
 num_senses = 5
 batch_size = None#32
-vocab_size = len(embeddings_words)
+vocab_size = len(keys.wv.vocab)#len(embeddings_words)
 word_emb_size = len(embeddings_values[0])
 max_sent_size = 300
 hidden_size = 300
